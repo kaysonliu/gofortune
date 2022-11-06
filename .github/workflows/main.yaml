@@ -63,7 +63,7 @@ jobs:
                 "fields": [
                   {
                     "type": "mrkdwn",
-                    "text": "*Email:*\n<example.com|e0896013@u.nus.edu>"
+                    "text": "*Email:*\n<href=e0896013@u.nus.edu>"
                   },
                   {
                     "type": "mrkdwn",
@@ -83,5 +83,5 @@ jobs:
             ]
           }
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_TESTURL }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK     
