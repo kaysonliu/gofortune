@@ -63,7 +63,7 @@ jobs:
                 "fields": [
                   {
                     "type": "mrkdwn",
-                    "text": "*Email:*\n<e0896013@u.nus.edu>"
+                    "text": "*Email:*\ne0896013@u.nus.edu"
                   },
                   {
                     "type": "mrkdwn",
