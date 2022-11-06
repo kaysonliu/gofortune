@@ -67,7 +67,7 @@ jobs:
                   },
                   {
                     "type": "mrkdwn",
-                    "text": "*Repository:*\n<github.repositoryURL>"
+                    "text": "*Repository:*\n<${{ github.repositoryURL }}>"
                   }
                 ]
               },
@@ -76,7 +76,7 @@ jobs:
                 "fields": [
                   {
                     "type": "mrkdwn",
-                    "text": "*Deployment:*\n<secrets.RAILWAY_TOKEN>\n\n<Open Application|secrets.RAILWAY_TOKEN>"
+                    "text": "*Deployment:*\n<${{ secrets.RAILWAY_TOKEN }}>\n\n<${{ secrets.RAILWAY_TOKEN }}|Open Application>"
                   }
                 ]
               }
