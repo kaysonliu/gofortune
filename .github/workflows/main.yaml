@@ -1,4 +1,4 @@
-name: slack
+name: GoFortune
 
 on:
  push:
