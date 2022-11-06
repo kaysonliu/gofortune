@@ -1,0 +1,83 @@
+name: slack
+
+on:
+  pull_request:
+    branches: [master]
+    tags: 'v*'
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, '#NORUN') }}
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - uses: ncipollo/release-action@v1
+      with:
+        token: ${{ secrets.YOUR_GITHUB_TOKEN }}
+    - name: Use Node 16
+      uses: actions/setup-node@v1
+    - name: Deploy
+      run: railway up
+      env: 
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      
+    - name: Send custom JSON data to Slack workflow
+      id: slack
+      uses: slackapi/slack-github-action@v1.23.0
+      with:
+        # For posting a rich message using Block Kit
+        payload: |
+          {
+            "blocks": 
+            [
+              {
+                "type": "header",
+                "text": {
+                  "type": "plain_text",
+                  "text": "DipSA55 CI/CD Assignment Submission",
+                  "emoji": true
+                }
+              },
+              {
+                "type": "section",
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Name:*\nLIU YIKAI"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Matriculation:*\nA0133932J"
+                  }
+                ]
+              },
+              {
+                "type": "section",
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Email:*\n<example.com|e0896013@u.nus.edu>"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Repository:*\n<example.com|https://github.com/kaysonliu/gofortune.git>"
+                  }
+                ]
+              },
+              {
+                "type": "section",
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Deployment:*\n<example.com|https://railway.app/project/d48ae682-d34e-4c67-b66c-2e77c6b9c52f>\n\nOpen Application|"
+                  }
+                ]
+              }
+            ]
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK               
