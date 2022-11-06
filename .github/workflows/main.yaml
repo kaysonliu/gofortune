@@ -1,4 +1,4 @@
-name: GoFortune
+name: Go-Fortune
 
 on:
  push:
