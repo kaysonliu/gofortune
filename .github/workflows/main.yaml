@@ -1,9 +1,8 @@
 name: slack
 
 on:
-  pull_request:
-    branches: [master]
-    tags: 'v*'
+ push:
+  branches: “v[0-9]+.[0-9]”
     
 jobs:
   build:
@@ -18,7 +17,11 @@ jobs:
       with:
         token: ${{ secrets.YOUR_GITHUB_TOKEN }}
     - name: Use Node 16
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
+        with:
+          node-version: 16
+    - name: Install Railway
+      run: npm i -g @railway/cli
     - name: Deploy
       run: railway up
       env: 
@@ -63,7 +66,7 @@ jobs:
                   },
                   {
                     "type": "mrkdwn",
-                    "text": "*Repository:*\n<example.com|https://github.com/kaysonliu/gofortune.git>"
+                    "text": "*Repository:*\n<github.repositoryURL>"
                   }
                 ]
               },
@@ -72,7 +75,7 @@ jobs:
                 "fields": [
                   {
                     "type": "mrkdwn",
-                    "text": "*Deployment:*\n<example.com|https://railway.app/project/d48ae682-d34e-4c67-b66c-2e77c6b9c52f>\n\nOpen Application|"
+                    "text": "*Deployment:*\n<secrets.RAILWAY_TOKEN>\n\n<Open Application|secrets.RAILWAY_TOKEN>"
                   }
                 ]
               }
