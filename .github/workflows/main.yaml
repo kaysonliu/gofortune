@@ -1,4 +1,4 @@
-name: Go-Fortune
+name: Go-Fortune LiuYikai
 
 on:
  push:
@@ -83,5 +83,5 @@ jobs:
             ]
           }
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_TESTURL }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK     
